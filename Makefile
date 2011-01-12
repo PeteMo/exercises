@@ -1,6 +1,9 @@
 CFLAGS  = -Wall
 CLEANUP = rot hot.hi rot.o
 
+all:
+	@echo "Which language?"
+
 haskell: rot.hs
 	ghc $(CFLAGS) $^ -o rot
 	
