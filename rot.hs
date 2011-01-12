@@ -4,13 +4,17 @@ import Char
 
 usage :: IO ()
 usage = do
-    hPutStrLn stderr $ "Usage Error"
+    progName <- getProgName
+    hPutStrLn stderr $ "Usage: " ++ progName ++ " factor string"
+
 
 main :: IO ()
 main = do
     args <- getArgs
-    let factor : string : _  = args
-    putStrLn $ rotate (read factor :: Int) string
+    case length args of
+        2 -> putStrLn $ rotate (read factor :: Int) string
+             where factor : string : _ = args
+        _ -> usage
 
 
 rotate :: Int -> String -> String
