@@ -14,7 +14,9 @@ main = do
     case length args of
         2 -> putStrLn $ rotate (read factor :: Int) string
              where factor : string : _ = args
-        _ -> usage
+        _ -> do 
+             usage
+             exitWith (ExitFailure 1)
 
 
 rotate :: Int -> String -> String
