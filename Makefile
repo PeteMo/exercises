@@ -11,6 +11,7 @@ c: rot.c
 
 python:
 	ln -sf rot.py rot
+	chmod 755 rot
     
 make clean:
 	rm -f *.o *.hi rot
