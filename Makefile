@@ -11,4 +11,4 @@ python:
 	ln -sf rot.py rot
     
 make clean:
-	rm *.o *.hi rot
+	rm -f *.o *.hi rot
