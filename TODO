@@ -1,0 +1,4 @@
+Write test harness and suite.
+Improve make clean.
+Fix error in output of C program when called as ./rot 13 'Hello World!'
+Add usage function to Haskell program.

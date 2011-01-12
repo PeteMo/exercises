@@ -1,0 +1,23 @@
+DESCRIPTION
+
+A program to rotate the characters in a string an arbitraty number of
+characters. It must perserve non-letter characters and capitalization. The
+string must NOT be rotated in place.
+
+USAGE
+
+./rot <factor> <string>  -- rotate each character in <string> by <factor> letters.
+
+EXAMPLES
+
+> ./rot 13 'Hello World'
+Uryyb Jbeyq
+
+> ./rot 14 'Hello World'
+Vszzc Kcfzr
+
+> ./rot -14 'Vszzc Kcfzr'
+Hello World
+
+> ./rot 182 'Hello World'
+Hello World
