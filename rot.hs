@@ -1,5 +1,10 @@
 import System
+import System.IO
 import Char
+
+usage :: IO ()
+usage = do
+    hPutStrLn stderr $ "Usage Error"
 
 main :: IO ()
 main = do
