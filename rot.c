@@ -6,7 +6,7 @@
 
 void usage(char *program)
 {
-    fprintf(stderr, "%s <rotation factor> <string>\n", basename(program));
+    fprintf(stderr, "Usage: %s factor string\n", basename(program));
 }
 
 

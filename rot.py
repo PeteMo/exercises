@@ -3,7 +3,7 @@
 import sys, os.path
 
 def usage(program):
-    sys.stderr.write("%s <rotation factor> <string>\n" % os.path.basename(program))
+    sys.stderr.write("Usage: %s factor string\n" % os.path.basename(program))
 
 
 def rotate_char(factor, c):
