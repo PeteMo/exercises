@@ -1,5 +1,4 @@
 CFLAGS  = -Wall
-CLEANUP = rot hot.hi rot.o
 
 all:
 	@echo "Which language?"
