@@ -11,10 +11,16 @@ usage = do
 main :: IO ()
 main = do
     args <- getArgs
+    factor : string : _ <- handleArgs args
+    putStrLn $ rotate (read factor :: Int) string
+
+
+handleArgs :: [a] -> IO [a]
+handleArgs args = do
     case length args of
-        2 -> putStrLn $ rotate (read factor :: Int) string
-             where factor : string : _ = args
-        _ -> do 
+        2 -> let arg1 : arg2 : _ = args
+             in return [arg1, arg2]
+        _ -> do
              usage
              exitWith (ExitFailure 1)
 
