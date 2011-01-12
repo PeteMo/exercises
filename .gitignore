@@ -1,0 +1,5 @@
+rot
+*.o
+*.hi
+.*
+!.gitignore
