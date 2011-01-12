@@ -1,3 +1,2 @@
 Write test harness and suite.
-Fix error in output of C program when called as ./rot 13 'Hello World!'
 Add usage function to Haskell program.

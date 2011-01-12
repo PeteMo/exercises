@@ -35,17 +35,21 @@ char rotate_char(int factor, char c)
 
 char *rotate(int factor, char *string)
 {
-    int i;
+    int i, e;
     char *rotated_string = malloc(sizeof(char) * strlen(string));
     if (rotated_string == NULL) {
         fprintf(stderr, "Unable to allocate memory for rotated_string.\n");
         exit(1);
     }
 
-    for (i=0; i < strlen(string); i++) {
+    e = strlen(string);
+    for (i=0; i < e; i++) {
         rotated_string[i] = rotate_char(factor, string[i]);
     }
 
+    /* Make sure the null byte is at the proper place in the rotated string. 
+     * It isn't if the last character is non-alpha. */
+    rotated_string[e] = '\0';
     return rotated_string;
 }
 
