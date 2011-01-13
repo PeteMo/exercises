@@ -7,7 +7,7 @@ c: rot.c
 	gcc $(CFLAGS) $^ -o rot
 
 haskell: rot.hs
-	ghc $(CFLAGS) $^ -o rot
+	ghc $(CFLAGS) --make rot
 
 python: rot.py
 	ln -sf $^ rot
