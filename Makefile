@@ -9,12 +9,12 @@ c: rot.c
 haskell: rot.hs
 	ghc $(CFLAGS) $^ -o rot
 
-python:
-	ln -sf rot.py rot
+python: rot.py
+	ln -sf $^ rot
 	chmod 755 rot
 
-shell:
-	ln -sf rot.sh rot
+shell: rot.sh
+	ln -sf $^ rot
 	chmod 755 rot
     
 make clean:
