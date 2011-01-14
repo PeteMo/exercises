@@ -13,9 +13,5 @@ python: rot.py
 	ln -sf $^ rot
 	chmod 755 rot
 
-shell: rot.sh
-	ln -sf $^ rot
-	chmod 755 rot
-    
 make clean:
 	rm -f *.o *.hi rot
