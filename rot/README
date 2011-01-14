@@ -1,0 +1,35 @@
+NAME
+
+rot
+
+DESCRIPTION
+
+A program to rotate the characters in a string an arbitraty number of
+characters. It perserves non-letter characters and capitalization. The string
+must NOT be rotated in place. The usage message below is printed to stderr when
+used incorrectly.
+
+The program has been written in several languages. A test suite is included
+that automates testing an implementation against a predefined set of input.
+
+BUILDING
+
+make [language] where language is one of c, python, or haskell.
+
+USAGE
+
+Usage: rot factor string
+
+EXAMPLES
+
+> ./rot 13 'Hello World'
+Uryyb Jbeyq
+
+> ./rot 14 'Hello World'
+Vszzc Kcfzr
+
+> ./rot -14 'Vszzc Kcfzr'
+Hello World
+
+> ./rot 182 'Hello World'
+Hello World
