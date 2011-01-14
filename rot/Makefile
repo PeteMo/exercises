@@ -10,7 +10,7 @@ haskell: rot.hs
 	ghc $(CFLAGS) --make rot
 
 python: rot.py
-	ln -sf $^ rot
+	cp $^ rot
 	chmod 755 rot
 
 make clean:
