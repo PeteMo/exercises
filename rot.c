@@ -18,7 +18,7 @@ char rotate_char(int factor, char c)
     offset = isupper(c) ? 'A' : 'a';
 
     if (isalpha(c)) {
-        /* C doesn't handle taking the modulus of negative numbers well; which
+        /* C doesn't handle taking the modulus of negative numbers well, which
          * can happen if factor is negative. The modulus of a negative can be
          * determined by adding the divisor to the dividend until it is
          * positive, then taking the modulus. */
