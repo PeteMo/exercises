@@ -36,10 +36,9 @@ readWords = do
     return $ words line
 
 eofHandler :: IOError -> IO a
-eofHandler e = 
-    if isEOFError e
-        then exitWith ExitSuccess
-        else ioError e
+eofHandler e
+    | isEOFError e = exitWith ExitSuccess
+    | otherwise    = ioError e
 
 
 rotate :: Int -> String -> String
