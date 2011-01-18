@@ -16,6 +16,7 @@ main = do
     putStrLn $ rotate factor string
 
 
+-- Takes a list of strings. Returns a pair where the first string is an Int 
 handleArgs :: [String] -> IO (Int, String)
 handleArgs args = do
     case length args of
@@ -33,13 +34,10 @@ handleArgs args = do
 readWords :: IO [String]
 readWords = do
     line <- getLine `catch` eofHandler
-    return $ words line
-
-eofHandler :: IOError -> IO a
-eofHandler e
-    | isEOFError e = exitWith ExitSuccess
-    | otherwise    = ioError e
-
+    let a : b = words line
+    return $ [a, unwords b]
+    where eofHandler e | isEOFError e = exitWith ExitSuccess
+                       | otherwise    = ioError e
 
 rotate :: Int -> String -> String
 rotate factor string = 
