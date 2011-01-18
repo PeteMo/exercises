@@ -8,13 +8,22 @@ usage = do
     progName <- getProgName
     hPutStrLn stderr $ "Usage: " ++ progName ++ " factor string"
 
+rotate :: Int -> String -> String
+rotate factor string = 
+    [rotateChar factor c | c <- string]
+
+rotateChar :: Int -> Char -> Char
+rotateChar factor c 
+    | isAlpha c = chr $ (ord c - offset + factor) `mod` 26 + offset
+    | otherwise = c
+    where offset | isUpper c = ord 'A'
+                 | otherwise = ord 'a'
 
 main :: IO ()
 main = do
     args <- getArgs
     (factor, string) <- handleArgs args
     putStrLn $ rotate factor string
-
 
 -- Takes a list of strings. Returns a pair where the first string
 -- is an Int and the rest of the list is a string.
@@ -32,9 +41,8 @@ handleArgs args = do
              usage
              exitWith (ExitFailure 1)
 
-
--- Read from stdin and return a list of strings; the first word and
--- the rest of the words combined into one string.
+-- Read from stdin and return a list of two strings; the first word and the
+-- rest of the words combined into one string.
 readWords :: IO [String]
 readWords = do
     line <- getLine `catch` eofHandler
@@ -42,16 +50,3 @@ readWords = do
     return $ [a, unwords b]
     where eofHandler e | isEOFError e = exitWith ExitSuccess
                        | otherwise    = ioError e
-
-
-rotate :: Int -> String -> String
-rotate factor string = 
-    [rotateChar factor c | c <- string]
-
-
-rotateChar :: Int -> Char -> Char
-rotateChar factor c 
-    | isAlpha c = chr $ (ord c - offset + factor) `mod` 26 + offset
-    | otherwise = c
-    where offset | isUpper c = ord 'A'
-                 | otherwise = ord 'a'
