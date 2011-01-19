@@ -1,0 +1,2 @@
+Comment getline implementation.
+Make getline call realloc if the buffer is too small.
