@@ -1,0 +1,22 @@
+NAME
+
+uc
+
+DESCRIPTION
+
+A program to convert all the characters in a string to upper case. It operates
+on the command line arguments or stdin if no arguments are provided. If reading
+from stdin, it loops, waiting for input until EOF (ctrl-d).
+
+The program has been written in several languages. A test suite is included
+that automates testing an implementation against a predefined set of input.
+
+BUILDING
+
+make [language] where language is one of c, python, or haskell.
+
+USAGE
+
+
+EXAMPLES
+
