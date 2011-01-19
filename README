@@ -1,9 +1,9 @@
 DESCRIPTION
 
-A set of exercises designed to learn various languages. Each exercise is
-implemented in several languages against a well defined specification. A test
-harness is used against each implementation to ensure it complies with the
-spec.
+A collection of simple programs written to learn various languages and their
+strengths and weaknesses. Each program is implemented in several languages
+against a well defined specification. A test harness is used against each
+implementation to ensure it complies with the spec.
 
 Each exercise is in a separate directory with its own README.
 
