@@ -54,23 +54,30 @@ char *uc(char *s)
 
 int main(int argc, char *argv[]) 
 {
+    int i;
     int size = 20;
     char *string;
 
-    if ((string = malloc(sizeof(char) * size)) == NULL) {
-        perror("Error calling malloc in main");
-        exit(1);
-    }
-
+    /* Read from stdin if no command line arguments. */
     if (argc == 1) {
+        if ((string = malloc(sizeof(char) * size)) == NULL) {
+            perror("Error calling malloc in main");
+            exit(1);
+        }
+
         while ((string = uc_getline(string, size, stdin)) != NULL) {
             printf("%s\n", uc(string));
         }
+
+        free(string);
     }
+    /* Process each argument. */
     else {
-        printf("%s\n", uc(argv[1]));
+        for(i = 1; i < argc; i++) {
+            printf("%s ", uc(argv[i]));
+        }
+        printf("\n");
     }
 
-    free(string);
     return 0;
 }
