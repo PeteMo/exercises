@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#ifdef linux
 #include <error.h>
+#endif
 
-/* Read a line from stream, resizing the buffer as necessary. Returns a pointer to the line
- * without a newline character or NULL on error. */
-char *uc_getline(char *buf, int size, FILE *stream)
+/* Read a line from stream not including the newline, resizing the buffer as
+ * necessary. Returns the number of characters read or -1 on error or EOF. */
+int uc_getline(char *buf, int size, FILE *stream)
 {
     int i;
     buf = fgets(buf, size, stream);
 
     if (buf == NULL) {
-        return buf;
+        return -1;
     }
 
     /* If the last character isn't '\n' then we didn't read the whole line. */
@@ -20,7 +22,7 @@ char *uc_getline(char *buf, int size, FILE *stream)
 
         /* Double the size of the buffer. */
         size += size;
-        if (realloc(buf, size) == NULL) {
+        if ((buf = realloc(buf, size)) == NULL) {
             perror("Error calling realloc in uc_getline");
             exit(1);
         }
@@ -38,7 +40,7 @@ char *uc_getline(char *buf, int size, FILE *stream)
     /* Remove the newline. */
     buf[strlen(buf)-1] = '\0';
 
-    return buf;
+    return strlen(buf);
 }
 
 /* Convert each character in s to uppercase, in place. */
@@ -66,7 +68,7 @@ int main(int argc, char *argv[])
             exit(1);
         }
 
-        while (uc_getline(string, size, stdin) != NULL) {
+        while (uc_getline(string, size, stdin) > 0) {
             printf("%s\n", uc(string));
         }
 
