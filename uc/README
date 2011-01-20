@@ -17,6 +17,13 @@ make [language] where language is one of c, python, or haskell.
 
 USAGE
 
+./uc [string] [...]
 
 EXAMPLES
 
+./uc hello world
+HELLO WORLD
+
+./uc
+hello world
+HELLO WORLD
