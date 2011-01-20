@@ -2,29 +2,42 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+#include <error.h>
 
-/* Read a line from stream. */
-char *getline(char *line, int size, FILE *stream)
+/* Read a line from stream, resizing the buffer as necessary. Returns a pointer to the line
+ * without a newline character or NULL on error. */
+char *uc_getline(char *buf, int size, FILE *stream)
 {
-    line = fgets(line, size, stream);
+    int i;
+    buf = fgets(buf, size, stream);
 
-    /* Null indicates error or EOF. */
-    if (line == NULL) {
-        /* Do nothing. Returning NULL indicates an error/eof. */
+    if (buf == NULL) {
+        return buf;
     }
 
     /* If the last character isn't '\n' then we didn't read the whole line. */
-    else if (line[strlen(line)-1] != '\n') {
-        fprintf(stderr, "Unable to read the complete line.\n");
-        exit(1);
+    while (buf[strlen(buf)-1] != '\n') {
+        /* Double the size of the buffer. */
+        size += size;
+        if ((buf = realloc(buf, size)) == NULL) {
+            perror("Error calling realloc in uc_getline");
+            exit(1);
+        }
+
+        /* Put everything back and try again. */
+        for (i = strlen(buf)-1; i >= 0; i--) {
+            if (ungetc(buf[i], stdin) == EOF) {
+                perror("Error calling ungetc in uc_getline");
+                exit(1);
+            }
+        }
+        buf = fgets(buf, size, stream);
     }
 
-    /* If it is, then remove the newline. */
-    else {
-        line[strlen(line)-1] = '\0';
-    }
+    /* Remove the newline. */
+    buf[strlen(buf)-1] = '\0';
 
-    return line;
+    return buf;
 }
 
 /* Convert each character in s to uppercase, in place. */
@@ -41,11 +54,16 @@ char *uc(char *s)
 
 int main(int argc, char *argv[]) 
 {
-    int size = 100;
-    char *string = malloc(size);
+    int size = 20;
+    char *string;
+
+    if ((string = malloc(sizeof(char) * size)) == NULL) {
+        perror("Error calling malloc in main");
+        exit(1);
+    }
 
     if (argc == 1) {
-        while ((string = getline(string, size, stdin)) != NULL) {
+        while ((string = uc_getline(string, size, stdin)) != NULL) {
             printf("%s\n", uc(string));
         }
     }
