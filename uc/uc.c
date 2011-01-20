@@ -17,9 +17,10 @@ char *uc_getline(char *buf, int size, FILE *stream)
 
     /* If the last character isn't '\n' then we didn't read the whole line. */
     while (buf[strlen(buf)-1] != '\n') {
+
         /* Double the size of the buffer. */
         size += size;
-        if ((buf = realloc(buf, size)) == NULL) {
+        if (realloc(buf, size) == NULL) {
             perror("Error calling realloc in uc_getline");
             exit(1);
         }
@@ -65,7 +66,7 @@ int main(int argc, char *argv[])
             exit(1);
         }
 
-        while ((string = uc_getline(string, size, stdin)) != NULL) {
+        while (uc_getline(string, size, stdin) != NULL) {
             printf("%s\n", uc(string));
         }
 
