@@ -8,19 +8,6 @@ usage = do
         hPutStrLn stderr $ "Usage: " ++ progName ++ " factor string"
 
 
-rotate :: Int -> String -> String
-rotate factor string = 
-    [rotateChar factor c | c <- string]
-
-
-rotateChar :: Int -> Char -> Char
-rotateChar factor c 
-    | isAlpha c = chr $ (ord c - offset + factor) `mod` 26 + offset
-    | otherwise = c
-    where offset | isUpper c = ord 'A'
-                 | otherwise = ord 'a'
-
-
 main :: IO ()
 main = do
     args <- getArgs
@@ -39,3 +26,16 @@ handleArgs args
                          line <- getLine `catch` (\_ -> exitWith ExitSuccess)
                          handleArgs $ words line
     where a : b = args
+
+
+rotate :: Int -> String -> String
+rotate factor string = 
+    [rotateChar factor c | c <- string]
+
+
+rotateChar :: Int -> Char -> Char
+rotateChar factor c 
+    | isAlpha c = chr $ (ord c - offset + factor) `mod` 26 + offset
+    | otherwise = c
+    where offset | isUpper c = ord 'A'
+                 | otherwise = ord 'a'
