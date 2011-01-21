@@ -22,9 +22,8 @@ handleArgs :: [String] -> IO (Int, String)
 handleArgs args
     | length args == 1 = usage >> exitWith (ExitFailure 1)
     | length args >= 2 = return (read a :: Int, unwords b)
-    | otherwise        = do
-                         line <- getLine `catch` (\_ -> exitWith ExitSuccess)
-                         handleArgs $ words line
+    | otherwise        = getLine `catch` (\_ -> exitWith ExitSuccess) >>= 
+                         \line -> handleArgs $ words line
     where a : b = args
 
 
