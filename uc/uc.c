@@ -12,7 +12,6 @@ int uc_getline(char *buf, int size, FILE *stream)
 {
     int i;
 
-    printf("Getting a line\n");
     if ((buf = fgets(buf, size, stream)) == NULL) {
         return -1;
     }
