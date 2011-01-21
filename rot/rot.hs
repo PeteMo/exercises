@@ -1,5 +1,11 @@
 import System
+import System.IO
 import Char
+
+usage :: IO ()
+usage = do
+        progName <- getProgName
+        hPutStrLn stderr $ "Usage: " ++ progName ++ " factor string"
 
 
 rotate :: Int -> String -> String
@@ -27,6 +33,7 @@ main = do
 
 handleArgs :: [String] -> IO (Int, String)
 handleArgs args
+    | length args == 1 = usage >> exitWith (ExitFailure 1)
     | length args >= 2 = return (read a :: Int, unwords b)
     | otherwise        = do
                          line <- getLine `catch` (\_ -> exitWith ExitSuccess)
