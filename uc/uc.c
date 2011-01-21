@@ -11,28 +11,22 @@
 int uc_getline(char *buf, int size, FILE *stream)
 {
     int i;
-    char *tmp;
 
-    if ((tmp = malloc(sizeof(char) * size)) == NULL) {
-        perror("Error calling malloc in uc_getline");
-        exit(1);
-    }
-
-    tmp = fgets(tmp, size, stream);
-
-    if (tmp == NULL) {
+    printf("Getting a line\n");
+    if ((buf = fgets(buf, size, stream)) == NULL) {
         return -1;
     }
 
-    strcpy(buf, tmp);
-
-    /* If the last character isn't '\n' then we didn't read the whole line. */
-    while (buf[strlen(buf)-1] != '\n') {
-        printf("Realloc'ing\n");
+    /* If the last character is '\n' then we read the whole line. Remove the
+     * newline and return. */
+    if (buf[strlen(buf)-1] == '\n') {
+        buf[strlen(buf)-1] = '\0';
+        return strlen(buf);
+    }
+    else {
 
         /* Put everything back. */
         for (i = strlen(buf)-1; i >= 0; i--) {
-            printf("  Putting back `%c'\n", buf[i]);
             if (ungetc(buf[i], stdin) == EOF) {
                 perror("Error calling ungetc in uc_getline");
                 exit(1);
@@ -41,26 +35,14 @@ int uc_getline(char *buf, int size, FILE *stream)
 
         /* Double the size of the buffer. */
         size += size;
-        printf("    Increasing the size of buf to %d\n", size);
         if ((buf = realloc(buf, size)) == NULL) {
             perror("Error calling realloc in uc_getline");
             exit(1);
         }
 
         /* Try again. */
-        printf("      Trying again\n");
-        buf = fgets(buf, size, stream);
-        printf("      Got %d chars\n", strlen(buf));
-        
+        return (uc_getline(buf, size, stream));
     }
-
-    /* Remove the newline. */
-    printf("        strlen(buf) = %d\n", strlen(buf));
-    buf[strlen(buf)-1] = '\0';
-
-    free(tmp);
-    printf("        Returning\n");
-    return strlen(buf);
 }
 
 /* Convert each character in s to uppercase, in place. */
@@ -89,11 +71,9 @@ int main(int argc, char *argv[])
         }
 
         while (uc_getline(string, size, stdin) > 0) {
-            printf("Returned. strlen(string) = %d\n", strlen(string));
             printf("%s\n", uc(string));
         }
 
-        printf("Freeing string: %p\n", string);
         free(string);
     }
     /* Process each argument. */
