@@ -2,9 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#ifdef linux
 #include <error.h>
-#endif
 
 /* Read a line from stream not including the newline, resizing the buffer as
  * necessary. Returns the number of characters read or -1 on error or EOF. */
