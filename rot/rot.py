@@ -23,15 +23,32 @@ def rotate_char(factor, c):
 def rotate(factor, string):
     return ''.join([rotate_char(factor, c) for c in string])
 
+def getInput():
+    input = sys.stdin.readline()
+    if (input):
+        return (input.split(' '))
+    else:
+        return []
+
 
 def main(argv = sys.argv):
-    if len(argv) != 3:
-        usage(argv[0])
-        return 1
+    if len(argv) == 1:
+        argv = getInput()
+        while (argv):
+            factor = int(argv[0])
+            string = " ".join(argv[1:])
+            print rotate(factor, string).strip()
+            argv = getInput()
 
-    factor = int(argv[1])
-    string = argv[2]
-    print rotate(factor, string)
+    elif len(argv) >= 3:
+        factor = int(argv[1])
+        string = " ".join(argv[2:])
+        print rotate(factor, string).strip()
+
+    else:
+        usage(argv[0])
+        sys.exit(1)
+
 
 
 if __name__ == "__main__":
