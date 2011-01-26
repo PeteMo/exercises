@@ -1,5 +1,6 @@
 rot/rot
 uc/uc
+guess/guess
 *.o
 *.hi
 .*
