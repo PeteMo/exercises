@@ -13,7 +13,8 @@ main = do
     let numGuesses = 3
     let (low, high) = (1, 10)
     r <- getRandom low high
-    putStrLn $ "You have " ++ show numGuesses ++ " tries to guess my number between " ++ show low ++ " and " ++ show high ++ "."
+    putStrLn $ "You have " ++ show numGuesses ++ " tries to guess my number between " 
+        ++ show low ++ " and " ++ show high ++ "."
     play r numGuesses
 
 
