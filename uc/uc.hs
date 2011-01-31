@@ -2,7 +2,7 @@ import Char
 import System
 
 uc :: String -> String
-uc s = [toUpper(c) | c <- s]
+uc s = map toUpper s
 
 main :: IO ()
 main = do
